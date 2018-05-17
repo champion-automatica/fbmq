@@ -15,6 +15,7 @@ SUPPORTED_API_VERS=[
     "v2.8",
     "v2.7",
     "v2.6",
+    "v3.0",
 ]
 
 # See https://developers.facebook.com/docs/messenger-platform/messenger-profile/supported-locales
@@ -455,7 +456,7 @@ class Page(object):
         if sys.version_info >= (3, 0):
             text = message if isinstance(message, str) else None
         else:
-            text = message if isinstance(message, str) else message.encode('utf-8') if isinstance(message, unicode) else None
+            text = message if isinstance(message, str) else message.encode('utf-8')
 
         attachment = message if not text else None
 
@@ -500,7 +501,7 @@ class Page(object):
                           headers={'Content-type': 'application/json'})
 
         if r.status_code != requests.codes.ok:
-            print(r.text)
+            raise ValueError(r.text)
 
     def _del_profile_property(self, pname):
         r = requests.delete(self._api_uri("me/messenger_profile"),
