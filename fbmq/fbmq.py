@@ -16,6 +16,8 @@ SUPPORTED_API_VERS=[
     "v2.7",
     "v2.6",
     "v3.0",
+    "v3.3",
+    "v4.0",
 ]
 
 # See https://developers.facebook.com/docs/messenger-platform/messenger-profile/supported-locales
