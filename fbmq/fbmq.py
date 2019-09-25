@@ -321,7 +321,7 @@ class Page(object):
         elif name in self._webhook_handlers:
             self._webhook_handlers[name](*args, **kwargs)
         else:
-            print("there's no %s handler" % name)
+            raise ValueError("there's no %s handler" % name)
 
     def handle_webhook(self, payload, optin=None, message=None, echo=None, delivery=None,
                        postback=None, read=None, account_linking=None, referral=None):
@@ -329,8 +329,7 @@ class Page(object):
 
         # Make sure this is a page subscription
         if data.get("object") != "page":
-            print("Webhook failed, only support page subscription")
-            return False
+            raise ValueError("Webhook failed, only support page subscription")
 
         # Iterate over each entry
         # There may be multiple if batched
@@ -392,8 +391,7 @@ class Page(object):
                          headers={'Content-type': 'application/json'})
 
         if r.status_code != requests.codes.ok:
-            print(r.text)
-            return
+            raise ValueError(r.text)
 
         data = json.loads(r.text)
         if 'id' not in data or 'name' not in data:
@@ -409,8 +407,7 @@ class Page(object):
                          headers={'Content-type': 'application/json'})
 
         if r.status_code != requests.codes.ok:
-            print(r.text)
-            return
+            raise ValueError(r.text)
 
         return json.loads(r.text)
 
@@ -426,8 +423,7 @@ class Page(object):
                           json=d,
                           headers={'Content-type': 'application/json'})
         if r.status_code != requests.codes.ok:
-            print(r.text)
-            return None
+            raise ValueError(r.text)
 
         data = json.loads(r.text)
         if 'uri' not in data:
@@ -443,7 +439,7 @@ class Page(object):
                           headers={'Content-type': 'application/json'})
 
         if r.status_code != requests.codes.ok:
-            print(r.text)
+            raise ValueError(r.text)
 
         if callback is not None:
             callback(payload, r)
@@ -514,7 +510,7 @@ class Page(object):
                             headers={'Content-type': 'application/json'})
 
         if r.status_code != requests.codes.ok:
-            print(r.text)
+            raise ValueError(r.text)
 
     def greeting(self, text):
         self.localized_greeting([LocalizedObj(locale="default", obj=text)])
