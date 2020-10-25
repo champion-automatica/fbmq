@@ -9,15 +9,12 @@ from .template import *
 
 # See https://developers.facebook.com/docs/graph-api/changelog
 SUPPORTED_API_VERS=[
-    "v2.11",
-    "v2.10",
-    "v2.9",
-    "v2.8",
-    "v2.7",
-    "v2.6",
-    "v3.0",
     "v3.3",
     "v4.0",
+    "v5.0",
+    "v6.0",
+    "v7.0",
+    "v8.0",
 ]
 
 # See https://developers.facebook.com/docs/messenger-platform/messenger-profile/supported-locales
